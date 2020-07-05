@@ -13,5 +13,22 @@ module.exports = {
               .end()
       })
   },
-  lintOnSave: false
+  lintOnSave: false,
+  devServer: {
+    port:8080,
+    open:false,
+    host:'0.0.0.0',
+    https:false,
+    hot:true,
+    hotOnly:false,
+    proxy: {
+      '/devapi': {
+        target: 'http://www.web-jshtml.cn/productapi',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/devapi': ''
+        }
+      }
+    }
+  }
 }
