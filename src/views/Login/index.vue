@@ -96,7 +96,7 @@ import {
 } from "@/utils/validate.js";
 export default {
   name: "login",
-  setup(props, { refs, root }) {
+  setup(props, { refs, root,router }) {
     // 验证码
     let validateCode = (rule, value, callback) => {
       console.log(value);
@@ -234,6 +234,9 @@ export default {
           message: data.message,
           type: "success"
         });
+        root.$router.push({
+          name:'Console'
+        })
       });
     };
     /**

@@ -13,6 +13,23 @@ const routes = [
     path: "/login",
     name: "login",
     component: () => import("../views/Login/index.vue")
+  },
+  {
+    path: "/console",
+    name: "Console",
+    component: () => import("../views/Layout/index.vue"),
+    children: [
+      {
+        path: "/console",
+        redirect: "/consoleIndex"
+      },
+      {
+        path: "/consoleIndex",
+        name: "ConsoleIndex",
+        component: () => import("../views/Console/index.vue"),
+      }
+    ]
+
   }
 
 ];
