@@ -1,5 +1,5 @@
 <template>
-  <div class="layout">
+  <div id="layout" :class="menuStatus?'clone':'open'">
     <LayoutNav />
     <LayoutHeader />
     <LayoutMain />
@@ -10,6 +10,7 @@
 import LayoutNav from "./Components/Nav";
 import LayoutHeader from "./Components/Header";
 import LayoutMain from "./Components/Main";
+import { computed } from "@vue/composition-api";
 export default {
   name: "layout",
   components: {
@@ -17,12 +18,18 @@ export default {
     LayoutHeader,
     LayoutMain
   },
-  setup() {}
+  setup(props, { root }) {
+    const menuStatus = computed(() => root.$store.state.app.isCollapse);
+    return {
+      menuStatus
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-.layout{
+#layout {
   background-color: #f4f4f4;
 }
+
 </style>

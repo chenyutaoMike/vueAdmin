@@ -96,7 +96,7 @@ import {
 } from "@/utils/validate.js";
 export default {
   name: "login",
-  setup(props, { refs, root,router }) {
+  setup(props, { refs, root, router }) {
     // 验证码
     let validateCode = (rule, value, callback) => {
       console.log(value);
@@ -227,7 +227,8 @@ export default {
      * 登陆
      */
     const login = requestData => {
-      Login(requestData).then(res => {
+      root.$store.dispatch("app/login", requestData).then(res => {
+        console.log('触发了login')
         let data = res.data;
         console.log(data);
         root.$message({
@@ -235,8 +236,8 @@ export default {
           type: "success"
         });
         root.$router.push({
-          name:'Console'
-        })
+          name: "Console"
+        });
       });
     };
     /**

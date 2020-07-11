@@ -1,15 +1,12 @@
 <template>
-    <div>
-      console.log
-    </div>
+  <div>ingo</div>
 </template>
 
 <script>
 export default {
-  name:'index'
-}
+  name:'info'
+};
 </script>
 
 <style>
-
 </style>

@@ -5,15 +5,14 @@ import router from "./router";
 import store from "./store";
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-
-// Vue.component(Button.name, Button);
-// Vue.component(Select.name, Select);
-// Vue.component(Form.name, Form);
-
+import '@/icons';  //引入自定义组件
+import './router/premit';
 Vue.use(ElementUI)
 Vue.use(vueCompositionApi)
 
 Vue.config.productionTip = false;
+
+
 
 new Vue({
   router,

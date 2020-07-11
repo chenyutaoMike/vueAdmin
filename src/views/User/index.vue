@@ -1,15 +1,12 @@
 <template>
-    <div>
-      console.log
-    </div>
+  <div>userList</div>
 </template>
 
 <script>
 export default {
-  name:'index'
-}
+  name:'userList'
+};
 </script>
 
 <style>
-
 </style>
