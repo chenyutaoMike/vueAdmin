@@ -1,11 +1,11 @@
 import axios from 'axios';
-
+import { getToken, getUserName } from './app';
 import { Message } from 'element-ui';
 
 const BASEURL = process.env.NODE_ENV === 'production' ? '' : '/devapi';
 const service = axios.create({
   baseURL: BASEURL,
-  timeout:10000
+  timeout: 10000
 });
 
 
@@ -17,6 +17,9 @@ service.interceptors.request.use(function (config) {
   // userId
   // config.headers['Tokey'] = 'xxx';
   // 最终目的是在请求头添加参数
+  config.headers['Tokey'] = getToken();
+  config.headers['UserName'] = getUserName();
+
   return config;
 }, function (error) {
   // 对请求错误做些什么
@@ -26,11 +29,11 @@ service.interceptors.request.use(function (config) {
 // 添加响应拦截器
 service.interceptors.response.use(function (response) {
   // 对响应数据做点什么
- const data = response.data;
-  if(data.resCode !== 0){
+  const data = response.data;
+  if (data.resCode !== 0) {
     Message.error(data.message)
     return Promise.reject(data)
-  }else {
+  } else {
     return response;
   }
 }, function (error) {

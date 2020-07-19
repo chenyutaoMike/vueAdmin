@@ -40,7 +40,6 @@ export default {
      * data数据
      */
     const routers = reactive(root.$router.options.routes);
-    console.log(routers);
     /**
      * computed 监听
      */

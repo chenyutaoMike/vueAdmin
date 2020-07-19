@@ -25,7 +25,6 @@ export default {
       root.$store.commit("app/SET_ISCOLLAPSE");
     };
     const username = computed(() => root.$store.state.app.user_name);
-    console.log(username);
     const exit = () => {
       root.$store.dispatch("app/exit").then(res => {
         root.$router.push({
@@ -53,6 +52,7 @@ export default {
   box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.1);
   line-height: 75px;
   transition: all 0.3s ease 0s;
+  z-index: 999;
   .header-icon {
     padding: 0 32px;
     svg {

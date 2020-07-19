@@ -9,7 +9,7 @@
  del, dfn, em, img, ins, kbd, q, s, samp,
  small, strike, strong, sub, sup, tt, var,
  b, u, i, center,
- dl, dt, dd, ol, ul, li,
+ dl, dt, dd, ol, ul,
  fieldset, form, label, legend,
  table, caption, tbody, tfoot, thead, tr, th, td,
  article, aside, canvas, details, embed,
@@ -18,7 +18,6 @@
  time, mark, audio, video, input {
    margin: 0;
    padding: 0;
-   border: 0;
    font-size: 100%;
    font-weight: normal;
    vertical-align: baseline;
@@ -32,6 +31,7 @@
  
  body {
    line-height: 1;
+   font-size: 15px;
  }
  
  blockquote, q {
@@ -89,7 +89,7 @@
  body {
    -webkit-text-size-adjust: none;
    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-   font-size: 14px;
+   font-size: 15px;
  }
 
 
@@ -111,6 +111,9 @@
  $navMenuMin:64px;
  /*主颜色*/
  $mainColor:#f56c6c;
+
+
+
 /*elemeui属性*/
 .el-menu .el-submenu .is-active {
   background-color: rgba(245,108,108,.2) !important;
@@ -144,5 +147,43 @@
   .el-menu-item:hover{
     background-color: $mainColor !important;
     
+  }
+}
+/** tab的样式*/
+div.el-table{
+  td,th{
+    text-align: center;
+  }
+  th{
+    color: #344a5f;
+    .cell{
+      font-weight: 700;
+    }
+  }
+  td{
+    font-size: 14px;
+  }
+}
+
+/*dialog样式*/
+.el-dialog__body{
+  padding: 30px 47px !important;
+}
+.el-form{
+  .el-form-item:nth-last-child(1){
+    margin-bottom: 0 !important;
+  }
+}
+.el-dialog__footer{
+  text-align: center;
+  padding-bottom: 50px !important;
+  .el-button{
+    width: 150px;
+    margin: 0 11px ;
+  }
+}
+.dialog{
+  .el-dialog{
+    width: 578px !important;
   }
 }
