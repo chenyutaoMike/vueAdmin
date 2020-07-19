@@ -76,13 +76,15 @@
     >
       <el-table-column type="selection" width="45"></el-table-column>
       <el-table-column prop="title" label="标题"></el-table-column>
-      <el-table-column prop="categoryId" label="类别" width="130" :formatter="toCategory"></el-table-column>
-      <el-table-column prop="createDate" label="日期" width="237" :formatter="toData"></el-table-column>
+      <el-table-column prop="categoryId" label="类别" width="110" :formatter="toCategory"></el-table-column>
+      <el-table-column prop="createDate" label="日期" width="220" :formatter="toData"></el-table-column>
       <el-table-column prop="user" label="管理员" width="115"></el-table-column>
-      <el-table-column label="操作" width="188">
+      <el-table-column label="操作" width="250">
         <template slot-scope="scope">
-          <el-button type="danger" size="mini" @click="deleteItem(scope.row.id)">删除</el-button>
           <el-button type="success" size="mini" @click="editInfo(scope.row.id)">编辑</el-button>
+          <el-button type="success" size="mini" @click="editInfo(scope.row.id)">编辑详情</el-button>
+
+          <el-button type="danger" size="mini" @click="deleteItem(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
