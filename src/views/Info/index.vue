@@ -82,7 +82,10 @@
       <el-table-column label="操作" width="250">
         <template slot-scope="scope">
           <el-button type="success" size="mini" @click="editInfo(scope.row.id)">编辑</el-button>
-          <el-button type="success" size="mini" @click="editInfo(scope.row.id)">编辑详情</el-button>
+
+          <el-button type="success" size="mini" @click="toDetailed(scope.row)">
+            编辑详情
+          </el-button>
 
           <el-button type="danger" size="mini" @click="deleteItem(scope.row.id)">删除</el-button>
         </template>
@@ -108,11 +111,13 @@
     <!-- 新增弹窗 -->
     <DialogInfo :flag="dialog_info" @close="closeDialog" :category="options.category"></DialogInfo>
     <!-- 修改弹窗 -->
-    <DialogEditInfo :flag="dialog_info_edit" :id="infoId"
-     @close="closeDialogEdit" :category="options.category"
-     @getList="getList"
-     ></DialogEditInfo>
-
+    <DialogEditInfo
+      :flag="dialog_info_edit"
+      :id="infoId"
+      @close="closeDialogEdit"
+      :category="options.category"
+      @getList="getList"
+    ></DialogEditInfo>
   </div>
 </template>
 
@@ -120,7 +125,7 @@
 import { GetList, DeleteInfo } from "@/api/news";
 import { reactive, ref, onMounted, watch } from "@vue/composition-api";
 import DialogInfo from "./dialog/info";
-import DialogEditInfo from './dialog/edit';
+import DialogEditInfo from "./dialog/edit";
 import { common } from "@/api/common";
 import { global } from "@/utils/global_v3.0.js";
 import { formateDate } from "@/utils/common";
@@ -173,7 +178,7 @@ export default {
     // 修改弹窗
     const dialog_info_edit = ref(false);
     // 修改弹窗ID
-    const infoId = ref('');
+    const infoId = ref("");
     /**
      * methods
      */
@@ -196,20 +201,20 @@ export default {
       dialog_info.value = false;
     };
     // 打开修改框
-    const editInfo = (id) =>{
+    const editInfo = id => {
       dialog_info_edit.value = true;
       infoId.value = id;
-    }
+    };
     // 关闭修改框
-    const closeDialogEdit = () =>{
-       dialog_info_edit.value = false;
-    }
+    const closeDialogEdit = () => {
+      dialog_info_edit.value = false;
+    };
     /**
      * 删除数据
      */
     const deleteItem = id => {
       deleteInfoId.value = [id];
-      console.log(id)
+      console.log(id);
       confirm({
         content: "确认删除当前信息，确认后无法恢复",
         tip: "警告",
@@ -296,6 +301,34 @@ export default {
       const id = val.map(item => item.id);
       deleteInfoId.value = id;
     };
+    const toDetailed = (data) =>{
+      // root.$router.push({
+      //   name:'InfoDetailed',
+      //   query:{
+      //     id:data.id,
+      //     title:data.title
+      //   }
+      // })
+     root.$store.commit("infoDetailed/UPDATE_STATE_VALUE",{
+       id:{
+         value:data.id,
+         sessionKey:'infoId',
+         session:true
+       },
+       title:{
+         value:data.title,
+         sessionKey:'infoTitle',
+         session:true
+       }
+     })
+      root.$router.push({
+        name:'InfoDetailed',
+        params:{
+          id:data.id,
+          title:data.title
+        }
+      })
+    }
     /**
      * 生命周期函数
      */
@@ -343,7 +376,8 @@ export default {
       search,
       closeDialogEdit,
       editInfo,
-      getList
+      getList,
+      toDetailed
     };
   }
 };
