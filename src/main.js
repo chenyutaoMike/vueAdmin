@@ -8,6 +8,8 @@ import 'element-ui/lib/theme-chalk/index.css';
 import '@/icons';  //引入自定义组件
 import './router/premit';
 
+
+
 // 自定义全局方法
 // import global from '@/utils/global';
 

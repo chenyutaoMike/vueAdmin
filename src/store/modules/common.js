@@ -1,4 +1,7 @@
 import {GetCategory} from '@/api/news'
+const state = {
+  qiniuUrl:'http://qdrrb0mqw.bkt.clouddn.com/'
+}
 const actions = {
   getInfoCategory(context, requestData) {
     return new Promise((res, rej) => {
@@ -11,7 +14,11 @@ const actions = {
     })
   }
 }
-
+const getters = {
+  qiniuUrl : state => state.qiniuUrl
+}
 export default {
-  namespaced: true
+  namespaced: true,
+  state,
+  getters
 }
