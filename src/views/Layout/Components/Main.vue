@@ -2,10 +2,13 @@
   <div class="main-wrap">
     <div class="main-content">
       <div class="content">
-         <router-view />
+        <keep-alive>
+          <!-- 缓存 -->
+          <router-view v-if="$route.meta.keepAlive" />
+        </keep-alive>
+        <router-view v-if="!$route.meta.keepAlive" />
       </div>
     </div>
-   
   </div>
 </template>
 
@@ -30,10 +33,10 @@ export default {
 .main-content {
   width: 100%;
   height: 100%;
-  padding: $layouHeader + 30 30px 0 $navMenu + 30 ;
+  padding: $layouHeader + 30 30px 0 $navMenu + 30;
 
   box-sizing: border-box;
-  transition: all .3s ease 0s;
+  transition: all 0.3s ease 0s;
 }
 .content {
   width: 100%;
@@ -43,7 +46,7 @@ export default {
   background-color: #fff;
 }
 .clone {
-  .main-content{
+  .main-content {
     padding-left: 90px;
   }
 }

@@ -49,10 +49,32 @@ export function common() {
 /**
  * 获取七牛云token
  */
-export function QiniuToKen(data){
+export function QiniuToKen(data) {
   return service.request({
     method: 'post',
     url: '/uploadImgToken/',
     data: data
+  })
+}
+
+/**
+ * 请求表格数据
+ */
+export function loadTableData(params) {
+  return service.request({
+    method: params.method || 'post',
+    url: params.url,
+    data: params.data || {}
+  })
+}
+
+/**
+ * 获取省市区关联
+ */
+export function GetCityPicker(data) {
+  return service.request({
+    method: 'post',
+    url: '/cityPicker/',
+    data
   })
 }

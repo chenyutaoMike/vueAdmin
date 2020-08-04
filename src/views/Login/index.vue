@@ -112,7 +112,6 @@ export default {
     };
     // 验证用户名
     let validateUsername = (rule, value, callback) => {
-      console.log("触发", value);
       if (value === "") {
         callback(new Error("请输入用户名"));
       } else if (validateEmail(value)) {
@@ -185,6 +184,9 @@ export default {
      */
     // 挂载完成后
     onMounted(() => {});
+    onUnmounted(()=>{
+      clearCountDown()
+    })
     /**
      * 声明函数
      */
@@ -228,7 +230,7 @@ export default {
      */
     const login = requestData => {
       root.$store.dispatch("app/login", requestData).then(res => {
-        console.log('触发了login')
+        console.log("触发了login");
         let data = res.data;
         console.log(data);
         root.$message({
@@ -316,6 +318,11 @@ export default {
           countDown(60);
         })
         .catch(err => {
+          loginButtonStatus.value = false;
+          updataButtonStatus({
+            status: false,
+            text: "再次获取"
+          });
           console.log(err);
         });
     };

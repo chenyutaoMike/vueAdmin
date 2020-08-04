@@ -4,8 +4,10 @@ import Layout from '@/views/Layout';
 
 Vue.use(VueRouter);
 
-
-const routes = [
+/**
+ * 默认路由
+ */
+export const defaultRouterMap = [
   {
     path: "/",
     redirect: "login",
@@ -43,12 +45,22 @@ const routes = [
       }
     ]
   },
+
+];
+/**
+ * 动态路由
+ * ["信息功能", "用户功能"]
+ */
+export const asnycRouter = [
   {
     path: "/info",
     name: "Info",
     meta: {
+
+      role: ['技术员', '业务员', '部门经理'],
       name: '信息管理',
-      icon: 'info'
+      icon: 'info',
+      system: "信息功能"
     },
     component: Layout,
     children: [
@@ -56,6 +68,8 @@ const routes = [
         path: "/infoindex",
         name: "Infoindex",
         meta: {
+          keepAlive: true,
+          role: ['技术员', '业务员', '部门经理'],
           name: '信息列表'
         },
         component: () => import("../views/Info/index.vue"),
@@ -64,6 +78,7 @@ const routes = [
         path: "/infoCategory",
         name: "InfoCategory",
         meta: {
+          role: ['技术员', '业务员', '部门经理'],
           name: '信息分类'
         },
         component: () => import("../views/Info/category.vue"),
@@ -71,8 +86,9 @@ const routes = [
       {
         path: "/infoDetailed",
         name: "InfoDetailed",
-        hidden:true,
+        hidden: true,
         meta: {
+          role: ['技术员', '业务员', '部门经理'],
           name: '信息详情'
         },
         component: () => import("../views/Info/detailed.vue"),
@@ -86,8 +102,10 @@ const routes = [
     path: "/user",
     name: "User",
     meta: {
+      role: ['技术员', '业务员', '部门经理'],
       name: '用户管理',
-      icon: 'user'
+      icon: 'user',
+      system: "用户功能"
     },
     component: () => import("../views/Layout/index.vue"),
     children: [
@@ -95,17 +113,47 @@ const routes = [
         path: "/userindex",
         name: "Userindex",
         meta: {
+          keepAlive: true,
+          role: ['技术员', '业务员', '部门经理'],
           name: '用户列表'
         },
         component: () => import("../views/User/index.vue"),
       }
     ]
+  },
+  /**
+   * 404页面
+   */
+  {
+    path: "/page404",
+    name: "404",
+    hidden: true,
+    meta: {
+      name: '404',
+      icon: '404',
+    },
+    component: () => import("../views/Layout/index.vue"),
+    children: [
+      {
+        path: "/404",
+        meta: {
+          name: '404'
+        },
+        component: () => import("../views/404.vue"),
+      }
+    ]
+  }, 
+  {
+    path: "*",
+    redirect: '404',
+    hidden: true,
   }
 
-];
+]
+
 
 const router = new VueRouter({
-  routes
+  routes: defaultRouterMap
 });
 
 export default router;

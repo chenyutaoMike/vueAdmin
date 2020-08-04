@@ -1,5 +1,4 @@
 import { MessageBox, Message } from 'element-ui';
-import { ref } from '@vue/composition-api';
 export function global() {
   const confirm = (params) => {
     MessageBox.confirm(params.content, params.tip || '提示', {

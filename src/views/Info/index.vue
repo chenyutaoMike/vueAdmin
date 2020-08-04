@@ -62,7 +62,12 @@
       </el-col>
 
       <el-col :span="2">
-        <el-button type="danger" style="width:100%" @click="openDialog">新增</el-button>
+        <el-button
+          type="danger"
+          style="width:100%"
+          @click="openDialog"
+          v-if="btnPerm('info:add')"
+        >新增</el-button>
       </el-col>
     </el-row>
 
@@ -81,13 +86,26 @@
       <el-table-column prop="user" label="管理员" width="115"></el-table-column>
       <el-table-column label="操作" width="250">
         <template slot-scope="scope">
-          <el-button type="success" size="mini" @click="editInfo(scope.row.id)">编辑</el-button>
+          <el-button
+            type="success"
+            size="mini"
+            @click="editInfo(scope.row.id)"
+            v-btnPerm="'info:edit'"
+          >编辑</el-button>
 
-          <el-button type="success" size="mini" @click="toDetailed(scope.row)">
-            编辑详情
-          </el-button>
+          <el-button
+            type="success"
+            size="mini"
+            @click="toDetailed(scope.row)"
+            v-btnPerm="'info:detailed'"
+          >编辑详情</el-button>
 
-          <el-button type="danger" size="mini" @click="deleteItem(scope.row.id)">删除</el-button>
+          <el-button
+            type="danger"
+            size="mini"
+            @click="deleteItem(scope.row.id)"
+            v-btnPerm="'info:del'"
+          >删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -109,7 +127,7 @@
       </el-col>
     </el-row>
     <!-- 新增弹窗 -->
-    <DialogInfo :flag="dialog_info" @close="closeDialog" :category="options.category"></DialogInfo>
+    <DialogInfo :flag="dialog_info" @close="closeDialog" :category="options.category" @loadTable="loadTable"></DialogInfo>
     <!-- 修改弹窗 -->
     <DialogEditInfo
       :flag="dialog_info_edit"
@@ -294,14 +312,17 @@ export default {
       return formateDate(row.createDate);
     };
     const toCategory = row => {
-      return options.category.filter(item => item.id === row.categoryId)[0]
-        .category_name;
+      const categoryData = options.category.filter(
+        item => item.id === row.categoryId
+      )[0];
+      if (!categoryData.category_name) return;
+      return categoryData.category_name;
     };
     const handleSelectionChange = val => {
       const id = val.map(item => item.id);
       deleteInfoId.value = id;
     };
-    const toDetailed = (data) =>{
+    const toDetailed = data => {
       // root.$router.push({
       //   name:'InfoDetailed',
       //   query:{
@@ -309,25 +330,29 @@ export default {
       //     title:data.title
       //   }
       // })
-     root.$store.commit("infoDetailed/UPDATE_STATE_VALUE",{
-       id:{
-         value:data.id,
-         sessionKey:'infoId',
-         session:true
-       },
-       title:{
-         value:data.title,
-         sessionKey:'infoTitle',
-         session:true
-       }
-     })
-      root.$router.push({
-        name:'InfoDetailed',
-        params:{
-          id:data.id,
-          title:data.title
+      root.$store.commit("infoDetailed/UPDATE_STATE_VALUE", {
+        id: {
+          value: data.id,
+          sessionKey: "infoId",
+          session: true
+        },
+        title: {
+          value: data.title,
+          sessionKey: "infoTitle",
+          session: true
         }
-      })
+      });
+      root.$router.push({
+        name: "InfoDetailed",
+        params: {
+          id: data.id,
+          title: data.title
+        }
+      });
+    };
+    const loadTable = () =>{
+      getList();
+
     }
     /**
      * 生命周期函数
@@ -377,7 +402,8 @@ export default {
       closeDialogEdit,
       editInfo,
       getList,
-      toDetailed
+      toDetailed,
+      loadTable
     };
   }
 };

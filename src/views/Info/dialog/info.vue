@@ -120,7 +120,8 @@ export default {
           if (result.resCode === 0) {
             console.log(result);
             // 重置表单
-
+            emit('close')
+            emit('loadTable')
             resultForm();
             root.$message({
               message: result.message,

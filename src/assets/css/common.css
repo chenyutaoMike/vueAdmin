@@ -4,3 +4,6 @@
 .pull-right{
   float: right;
 }
+.overflow-h {
+  overflow: hidden;
+}

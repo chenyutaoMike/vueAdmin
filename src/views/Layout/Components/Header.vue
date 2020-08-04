@@ -8,8 +8,8 @@
         <img src="../../../assets/images/header_icon.jpg" alt />
         {{username}}
       </div>
-      <div class="header-icon pull-left" @click="exit">
-        <svg-icon iconClass="exit" class="exit"></svg-icon>
+      <div class="header-icon pull-left" @click="logout">
+        <svg-icon iconClass="exit" class="logout"></svg-icon>
       </div>
     </div>
   </div>
@@ -25,17 +25,20 @@ export default {
       root.$store.commit("app/SET_ISCOLLAPSE");
     };
     const username = computed(() => root.$store.state.app.user_name);
-    const exit = () => {
-      root.$store.dispatch("app/exit").then(res => {
-        root.$router.push({
-          name: "login"
-        });
+    const logout = () => {
+      root.$store.dispatch("app/logout").then(res => {
+        console.log(res)
+        if (res.resCode === 0) {
+          root.$router.push({
+            name: "login"
+          });
+        }
       });
     };
     return {
       navMenuState,
       username,
-      exit
+      logout
     };
   }
 };
